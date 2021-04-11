@@ -8,9 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class UniversityGroupFixture extends Fixture
 {
-	private const REFERENCE_SOME 		 = 'groups.some';
-	private const REFERENCE_ANOTHER 	 = 'groups.another';
-	private const REFERENCE_SOME_ANOTHER = 'groups.some.another';
+	public const REFERENCE_SOME 		= 'groups.some';
+	public const REFERENCE_ANOTHER 	    = 'groups.another';
+	public const REFERENCE_SOME_ANOTHER = 'groups.some.another';
 
     public function load(ObjectManager $manager)
     {

@@ -8,9 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class SubjectFixture extends Fixture
 {
-	private const REFERENCE_CHARMS    = 'subject.charms';
-	private const REFERENCE_HERBOLOGY = 'subject.herbology';
-	private const REFERENCE_POTIONS   = 'subject.potions';
+	public const REFERENCE_CHARMS    					 = 'subject.charms';
+	public const REFERENCE_DEFENCE_AGAINST_THE_DARK_ARTS = 'subject.herbology';
+	public const REFERENCE_TRANSFIGURATION   			 = 'subject.transfiguration';
 
     public function load(ObjectManager $manager)
     {
@@ -18,13 +18,13 @@ class SubjectFixture extends Fixture
         $this->addReference(self::REFERENCE_CHARMS, $charms);
         $manager->persist($charms);
 
-		$herbology = $this->createHerbology();
-		$this->addReference(self::REFERENCE_HERBOLOGY, $herbology);
-		$manager->persist($herbology);
+		$defenceAgainstTheDarkArts = $this->createDefenceAgainstTheDarkArts();
+		$this->addReference(self::REFERENCE_DEFENCE_AGAINST_THE_DARK_ARTS, $defenceAgainstTheDarkArts);
+		$manager->persist($defenceAgainstTheDarkArts);
 
-		$potions = $this->createPotions();
-		$this->addReference(self::REFERENCE_POTIONS, $potions);
-		$manager->persist($potions);
+		$transfiguration = $this->createTransfiguration();
+		$this->addReference(self::REFERENCE_TRANSFIGURATION, $transfiguration);
+		$manager->persist($transfiguration);
 
         $manager->flush();
     }
@@ -38,20 +38,20 @@ class SubjectFixture extends Fixture
 		return $subject;
 	}
 
-	private function createHerbology(): Subject
+	private function createDefenceAgainstTheDarkArts(): Subject
 	{
 		$subject = new Subject();
 
-		$subject->setName('Herbology');
+		$subject->setName('Defence Against the Dark Arts');
 
 		return $subject;
 	}
 
-	private function createPotions(): Subject
+	private function createTransfiguration(): Subject
 	{
 		$subject = new Subject();
 
-		$subject->setName('Potions');
+		$subject->setName('Transfiguration');
 
 		return $subject;
 	}

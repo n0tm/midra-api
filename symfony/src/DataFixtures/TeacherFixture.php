@@ -8,15 +8,15 @@ use Doctrine\Persistence\ObjectManager;
 
 class TeacherFixture extends Fixture
 {
-	public const REFERENCE_ALBUS_DUMBLEDORE    = 'teacher.albus.dumbledore';
+	public const REFERENCE_FILIUS_FLITWICK     = 'teacher.filius.flitwick';
 	public const REFERENCE_SEVERUS_SNAPE       = 'teacher.severus.snape';
 	public const REFERENCE_MINERVA_MC_GONAGALL = 'teacher.minerva.mc.gonagall';
 
     public function load(ObjectManager $manager)
     {
-        $albus = $this->createAlbusDumbledore();
-        $this->addReference(self::REFERENCE_ALBUS_DUMBLEDORE, $albus);
-        $manager->persist($albus);
+		$filiusFlitwick = $this->createFiliusFlitwick();
+        $this->addReference(self::REFERENCE_FILIUS_FLITWICK, $filiusFlitwick);
+        $manager->persist($filiusFlitwick);
 
 		$severusSnape = $this->createSeverusSnape();
 		$this->addReference(self::REFERENCE_SEVERUS_SNAPE, $severusSnape);
@@ -29,11 +29,11 @@ class TeacherFixture extends Fixture
         $manager->flush();
     }
 
-    private function createAlbusDumbledore(): Teacher
+    private function createFiliusFlitwick(): Teacher
 	{
 		$teacher = new Teacher();
 
-		$teacher->setName('Albus Dumbledore');
+		$teacher->setName('Filius Flitwick');
 
 		return $teacher;
 	}
