@@ -7,6 +7,7 @@ use App\Repository\SubjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SubjectRepository::class)
@@ -18,16 +19,22 @@ class Subject
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+	 *
+	 * @Groups("event:nested:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+	 *
+	 * @Groups("event:nested:read")
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="subject")
+	 *
+	 * @Groups("none")
      */
     private $events;
 

@@ -5,10 +5,13 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"event:read", "event:nested:read"}}
+ * )
  */
 class Event
 {
@@ -16,34 +19,46 @@ class Event
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+	 *
+	 * @Groups("event:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+	 *
+	 * @Groups("event:read")
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=UniversityGroup::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+	 *
+	 * @Groups("event:read")
      */
     private $universityGroup;
 
     /**
      * @ORM\ManyToOne(targetEntity=Teacher::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+	 *
+	 * @Groups("event:read")
      */
     private $teacher;
 
     /**
      * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+	 *
+	 * @Groups("event:read")
      */
     private $subject;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+	 *
+	 * @Groups("event:read")
      */
     private $date;
 
