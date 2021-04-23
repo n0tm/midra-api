@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        event_attachment:
+            uri_prefix: /event/attachment
+            upload_destination: '%kernel.project_dir%/public/event/attachment'
+            namer: Vich\UploaderBundle\Naming\OrignameNamer
