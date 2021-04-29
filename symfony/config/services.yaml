@@ -20,6 +20,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+            - '../src/Migrations/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -44,3 +45,12 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+    event.exists_filter:
+        parent: 'api_platform.doctrine.orm.exists_filter'
+        arguments: [ { eventAttachments: ~ } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+
+

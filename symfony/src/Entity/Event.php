@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=EventRepository::class)
  * @ApiResource(
  *     normalizationContext={"groups"={"event:read", "event_attachment:read", "event:nested:read"}},
- *     attributes={"filters"={"event.search_filter", "event.date_filter"}}
+ *     attributes={"filters"={"event.search_filter", "event.date_filter", "event.exists_filter"}}
  * )
  */
 class Event
