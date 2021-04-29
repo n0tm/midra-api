@@ -5,13 +5,15 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EventRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
  * @ApiResource(
- *     normalizationContext={"groups"={"event:read", "event:nested:read"}},
+ *     normalizationContext={"groups"={"event:read", "event_attachment:read", "event:nested:read"}},
  *     attributes={"filters"={"event.search_filter", "event.date_filter"}}
  * )
  */
@@ -64,6 +66,18 @@ class Event
      */
     private $date;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EventAttachment::class, mappedBy="event")
+	 *
+	 * @Groups("event:read")
+     */
+    private $eventAttachments;
+
+    public function __construct()
+    {
+        $this->eventAttachments = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +91,18 @@ class Event
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDate(): ?DateTimeImmutable
+    {
+        return $this->date;
+    }
+
+    public function setDate(DateTimeImmutable $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
@@ -117,14 +143,33 @@ class Event
         return $this;
     }
 
-    public function getDate(): ?DateTimeImmutable
+
+    /**
+     * @return Collection|EventAttachment[]
+     */
+    public function getEventAttachments(): Collection
     {
-        return $this->date;
+        return $this->eventAttachments;
     }
 
-    public function setDate(DateTimeImmutable $date): self
+    public function addEventAttachment(EventAttachment $eventAttachment): self
     {
-        $this->date = $date;
+        if (!$this->eventAttachments->contains($eventAttachment)) {
+            $this->eventAttachments[] = $eventAttachment;
+            $eventAttachment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventAttachment(EventAttachment $eventAttachment): self
+    {
+        if ($this->eventAttachments->removeElement($eventAttachment)) {
+            // set the owning side to null (unless already changed)
+            if ($eventAttachment->getEvent() === $this) {
+                $eventAttachment->setEvent(null);
+            }
+        }
 
         return $this;
     }
