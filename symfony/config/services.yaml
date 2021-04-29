@@ -29,3 +29,18 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    event.search_filter:
+        parent: 'api_platform.doctrine.orm.search_filter'
+        arguments: [ { name: 'ipartial', universityGroup.id: 'exact', teacher.id: 'exact', subject.id: 'exact' } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false
+    event.date_filter:
+        parent: 'api_platform.doctrine.orm.date_filter'
+        arguments: [ { date: ~ } ]
+        tags: [ 'api_platform.filter' ]
+        autowire: false
+        autoconfigure: false
+        public: false

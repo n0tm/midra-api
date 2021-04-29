@@ -4,13 +4,15 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EventRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
  * @ApiResource(
- *     normalizationContext={"groups"={"event:read", "event:nested:read"}}
+ *     normalizationContext={"groups"={"event:read", "event:nested:read"}},
+ *     attributes={"filters"={"event.search_filter", "event.date_filter"}}
  * )
  */
 class Event
@@ -115,12 +117,12 @@ class Event
         return $this;
     }
 
-    public function getDate(): ?\DateTimeImmutable
+    public function getDate(): ?DateTimeImmutable
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeImmutable $date): self
+    public function setDate(DateTimeImmutable $date): self
     {
         $this->date = $date;
 
