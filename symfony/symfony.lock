@@ -125,6 +125,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.0"
     },
+    "evotodi/seed-bundle": {
+        "version": "1.3"
+    },
     "fig/link-util": {
         "version": "1.1.2"
     },

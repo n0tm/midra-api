@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "916d354087ce647a69c91a4a4ca172c2",
+    "content-hash": "6e31deda793892fab5ce156acc3531f6",
     "packages": [
         {
             "name": "antishov/doctrine-extensions-bundle",
@@ -1702,6 +1702,61 @@
                 "source": "https://github.com/doctrine/sql-formatter/tree/1.1.x"
             },
             "time": "2020-07-30T16:57:33+00:00"
+        },
+        {
+            "name": "evotodi/seed-bundle",
+            "version": "1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evotodi/seed-bundle.git",
+                "reference": "0fb5e7cd50fe59633fcc358ea4af8bac8a316164"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/evotodi/seed-bundle/zipball/0fb5e7cd50fe59633fcc358ea4af8bac8a316164",
+                "reference": "0fb5e7cd50fe59633fcc358ea4af8bac8a316164",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "^1.0|^2.0",
+                "doctrine/orm": "^2.7",
+                "php": ">=7.1",
+                "symfony/console": "4.4.*|5.0.*|5.1.*|5.2.*",
+                "symfony/finder": "4.4.*|5.0.*|5.1.*|5.2.*",
+                "symfony/framework-bundle": "4.4.*|5.0.*|5.1.*|5.2.*",
+                "symfony/yaml": "4.4.*|5.0.*|5.1.*|5.2.*"
+            },
+            "require-dev": {
+                "symfony/config": "4.4.*|5.0.*|5.1.*|5.2.*",
+                "symfony/dependency-injection": "4.4.*|5.0.*|5.1.*|5.2.*",
+                "symfony/phpunit-bridge": "4.4.*|5.0.*|5.1.*|5.2.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Evotodi\\SeedBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "evotodi",
+                    "email": "evotodi@gmail.com"
+                },
+                {
+                    "name": "Soyuka",
+                    "email": "soyuka@gmail.com"
+                }
+            ],
+            "description": "Database seeder for symfony 4/5",
+            "support": {
+                "issues": "https://github.com/evotodi/seed-bundle/issues",
+                "source": "https://github.com/evotodi/seed-bundle/tree/1.3"
+            },
+            "time": "2021-01-07T20:06:43+00:00"
         },
         {
             "name": "fig/link-util",
