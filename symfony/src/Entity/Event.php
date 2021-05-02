@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=EventRepository::class)
  * @ApiResource(
  *     normalizationContext={"groups"={"event:read", "event_attachment:read", "event:nested:read"}},
+ *     denormalizationContext={"groups"={"event:write"}},
  *     attributes={"filters"={"event.search_filter", "event.date_filter", "event.exists_filter"}}
  * )
  */
@@ -31,7 +32,7 @@ class Event
     /**
      * @ORM\Column(type="string", length=255)
 	 *
-	 * @Groups("event:read")
+	 * @Groups("event:read", "event:write")
      */
     private $name;
 
@@ -39,7 +40,7 @@ class Event
      * @ORM\ManyToOne(targetEntity=UniversityGroup::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
 	 *
-	 * @Groups("event:read")
+	 * @Groups("event:read", "event:write")
      */
     private $universityGroup;
 
@@ -47,7 +48,7 @@ class Event
      * @ORM\ManyToOne(targetEntity=Teacher::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
 	 *
-	 * @Groups("event:read")
+	 * @Groups("event:read", "event:write")
      */
     private $teacher;
 
@@ -55,14 +56,14 @@ class Event
      * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
 	 *
-	 * @Groups("event:read")
+	 * @Groups("event:read", "event:write")
      */
     private $subject;
 
     /**
      * @ORM\Column(type="datetime_immutable")
 	 *
-	 * @Groups("event:read")
+	 * @Groups("event:read", "event:write")
      */
     private $date;
 
