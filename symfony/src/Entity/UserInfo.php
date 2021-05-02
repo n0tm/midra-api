@@ -43,10 +43,17 @@ class UserInfo
      */
     private $avatar;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=UniversityGroup::class, inversedBy="userInfos")
+     * @ORM\JoinColumn(nullable=false)
+	 * @Groups("user:write", "user:read")
+     */
+    private $universityGroup;
+
 	public function getId(): ?int
- 	{
-	 	return $this->id;
- 	}
+          	{
+         	 	return $this->id;
+          	}
 
     public function getName(): ?string
     {
@@ -92,6 +99,18 @@ class UserInfo
     public function setAvatar(?UserAvatar $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getUniversityGroup(): ?UniversityGroup
+    {
+        return $this->universityGroup;
+    }
+
+    public function setUniversityGroup(?UniversityGroup $universityGroup): self
+    {
+        $this->universityGroup = $universityGroup;
 
         return $this;
     }

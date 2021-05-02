@@ -38,9 +38,15 @@ class UniversityGroup
      */
     private $events;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserInfo::class, mappedBy="universityGroup")
+     */
+    private $userInfos;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->userInfos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,6 +91,36 @@ class UniversityGroup
             // set the owning side to null (unless already changed)
             if ($event->getUniversityGroup() === $this) {
                 $event->setUniversityGroup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserInfo[]
+     */
+    public function getUserInfos(): Collection
+    {
+        return $this->userInfos;
+    }
+
+    public function addUserInfo(UserInfo $userInfo): self
+    {
+        if (!$this->userInfos->contains($userInfo)) {
+            $this->userInfos[] = $userInfo;
+            $userInfo->setUniversityGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserInfo(UserInfo $userInfo): self
+    {
+        if ($this->userInfos->removeElement($userInfo)) {
+            // set the owning side to null (unless already changed)
+            if ($userInfo->getUniversityGroup() === $this) {
+                $userInfo->setUniversityGroup(null);
             }
         }
 

@@ -25,6 +25,7 @@ class UserInfoFixture extends Fixture implements DependentFixtureInterface
 		return [
 			UserAvatarFixture::class,
 			UserFixture::class,
+			UniversityGroupFixture::class,
 		];
 	}
 
@@ -37,6 +38,7 @@ class UserInfoFixture extends Fixture implements DependentFixtureInterface
 
 		$userInfo->setAvatar($this->getReference(UserAvatarFixture::REFERENCE_DEFAULT_AVATAR));
 		$userInfo->setUser($this->getReference(UserFixture::REFERENCE_HARRY_POTTER));
+		$userInfo->setUniversityGroup($this->getReference(UniversityGroupFixture::REFERENCE_SOME));
 
 		return $userInfo;
 	}
