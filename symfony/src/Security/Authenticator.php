@@ -24,24 +24,19 @@ class Authenticator extends AbstractGuardAuthenticator
 
 	public function supports(Request $request)
 	{
-		return false;
+		return $request->headers->has('X-USER-UUID');
 	}
 
 	public function getCredentials(Request $request)
 	{
-		return $request->headers->has('X-USER-UUID') ? [
+		return [
 			'uuid' => $request->headers->get('X-USER-UUID')
-		] : null;
+		];
 	}
 
 	public function getUser($credentials, UserProviderInterface $userProvider)
 	{
-		$uuid = $credentials['uuid'];
-		if ($uuid === null) {
-			return;
-		}
-
-		return $userProvider->loadUserByUsername($uuid);
+		return $userProvider->loadUserByUsername($credentials['uuid']);
 	}
 
 	public function checkCredentials($credentials, UserInterface $user)

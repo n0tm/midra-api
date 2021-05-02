@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserInfoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserInfoRepository::class)
@@ -19,11 +20,13 @@ class UserInfo
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * @Groups("user:write", "user:read")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * @Groups("user:write", "user:read")
      */
     private $surname;
 
@@ -36,6 +39,7 @@ class UserInfo
     /**
      * @ORM\ManyToOne(targetEntity=UserAvatar::class)
      * @ORM\JoinColumn(nullable=false)
+	 * @Groups("user:write", "user:read")
      */
     private $avatar;
 

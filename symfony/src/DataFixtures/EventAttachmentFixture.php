@@ -31,7 +31,7 @@ class EventAttachmentFixture extends Fixture implements DependentFixtureInterfac
     {
         $eventAttachment = new EventAttachment();
 
-        $eventAttachment->setContentUrl('event/attachment/some_cheat_sheet.txt');
+        $eventAttachment->setFilePath('some_cheat_sheet.txt');
         $eventAttachment->setEvent($this->getReference(EventFixture::REFERENCE_CHARMS_EXAMINATION));
 
         return $eventAttachment;

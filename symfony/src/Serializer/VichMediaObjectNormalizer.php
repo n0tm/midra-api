@@ -3,12 +3,13 @@
 namespace App\Serializer;
 
 use App\Entity\EventAttachment;
+use App\Entity\UserAvatar;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
-class EventAttachmentNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
+class VichMediaObjectNormalizer implements ContextAwareNormalizerInterface, NormalizerAwareInterface
 {
 	use NormalizerAwareTrait;
 
@@ -39,6 +40,7 @@ class EventAttachmentNormalizer implements ContextAwareNormalizerInterface, Norm
 			return false;
 		}
 
-		return $data instanceof EventAttachment;
+		return $data instanceof EventAttachment ||
+			$data instanceof UserAvatar;
 	}
 }
