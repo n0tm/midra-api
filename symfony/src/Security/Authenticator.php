@@ -24,7 +24,7 @@ class Authenticator extends AbstractGuardAuthenticator
 
 	public function supports(Request $request)
 	{
-		return $request->headers->has('X-USER-UUID');
+		return $request->headers->has('X-USER-UUID') && !empty($request->headers->get('X-USER-UUID'));
 	}
 
 	public function getCredentials(Request $request)

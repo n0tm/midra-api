@@ -1,0 +1,8 @@
+{
+    "require-dev": {
+        "symfony/profiler-pack": "^1.0"
+    },
+    "require": {
+        "symfony/http-kernel": "^5.2"
+    }
+}

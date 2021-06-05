@@ -22,7 +22,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *         "post"={
  *             "controller"=CreateEventAttachmentAction::class,
  *             "deserialize"=false,
- *             "validation_groups"={"Default", "event_attachment:create"},
+ *     		   "defaults"={
+ *     				"_api_respond"=false,
+ * 				},
  *             "openapi_context"={
  *                 "requestBody"={
  *                     "content"={
@@ -60,7 +62,7 @@ class EventAttachment
 	 *
 	 * @Groups({"event_attachment:read"})
 	 */
-	public $id;
+	private $id;
 
 	/**
 	 * @var string|null
@@ -72,8 +74,13 @@ class EventAttachment
 
 	/**
 	 * @var File|null
-	 *
-	 * @Assert\NotNull(groups={"event_attachment:create"})
+	 * @Assert\File(
+	 *     maxSize = "2048k",
+	 *     maxSizeMessage = "File exceeds allowed size",
+	 *     mimeTypes = {"image/png","image/jpeg", "application/pdf"},
+	 *     mimeTypesMessage = "Supported uploadeble mime types is png, jpeg, pdf"
+	 * )
+	 * @Assert\NotNull()
 	 * @Vich\UploadableField(mapping="event_attachment", fileNameProperty="filePath")
 	 */
 	public $file;

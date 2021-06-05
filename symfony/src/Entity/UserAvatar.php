@@ -33,14 +33,14 @@ class UserAvatar
 	 * @ORM\GeneratedValue
 	 * @ORM\Id
 	 *
-	 * @Groups({"user_avatar:read"})
+	 * @Groups({"user_avatar:read", "user:read"})
 	 */
 	public $id;
 
 	/**
 	 * @var string|null
 	 *
-	 * @Groups({"user_avatar:read"})
+	 * @Groups("user_avatar:read", "user:read")
 	 */
 	public $contentUrl;
 

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UniversityGroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,14 +21,14 @@ class UniversityGroup
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
 	 *
-	 * @Groups("event:nested:read")
+	 * @Groups("event:nested:read", "user:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
 	 *
-	 * @Groups("event:nested:read")
+	 * @Groups("event:nested:read", "user:read")
      */
     private $name;
 

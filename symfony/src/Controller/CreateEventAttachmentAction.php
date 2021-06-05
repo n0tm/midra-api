@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Entity\EventAttachment;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class CreateEventAttachmentAction extends AbstractController
 {
@@ -20,11 +24,19 @@ final class CreateEventAttachmentAction extends AbstractController
 		$this->eventRepository = $eventRepository;
 	}
 
-	public function __invoke(Request $request): EventAttachment
+	/**
+	 * @param Request $request
+	 * @param ValidatorInterface $validator
+	 * @return JsonResponse
+	 */
+	public function __invoke(Request $request, ValidatorInterface $validator)
 	{
-		$uploadedFile = $request->files->get('file');
+		$uploadedFiles = $request->files->get('file');
+		if (!is_array($uploadedFiles)) {
+			$uploadedFiles = [$uploadedFiles];
+		}
 
-		if (!$uploadedFile) {
+		if (!$uploadedFiles) {
 			throw new BadRequestHttpException('"file" is required');
 		}
 
@@ -36,13 +48,19 @@ final class CreateEventAttachmentAction extends AbstractController
 		$event = $this->eventRepository->find($eventId);
 
 		if ($event === null) {
-			throw new BadRequestHttpException('"eventId" not found');
+			throw new NotFoundHttpException('event not found');
 		}
 
-		$eventAttachment = new EventAttachment();
-		$eventAttachment->file = $uploadedFile;
-		$eventAttachment->setEvent($event);
+		foreach ($uploadedFiles as $uploadedFile) {
+			$eventAttachment = new EventAttachment();
+			$eventAttachment->file = $uploadedFile;
+			$eventAttachment->setEvent($event);
 
-		return $eventAttachment;
+			$validator->validate($eventAttachment);
+			$this->getDoctrine()->getManager()->persist($eventAttachment);
+		}
+
+		$this->getDoctrine()->getManager()->flush();
+		return new JsonResponse(['success' => true]);
 	}
 }
